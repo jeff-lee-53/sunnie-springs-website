@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sunnie Springs — A New Community in Pleasant View, Utah</title>
+    <meta name="description" content="Sunnie Springs is a new 13-lot residential subdivision coming to Pleasant View, Utah. Follow development updates and express interest in a lot.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* ============================================
+           CSS CUSTOM PROPERTIES
+        ============================================ */
+        :root {
+            --green-deep:    #1E4012;
+            --green-mid:     #2D5A1B;
+            --green-bright:  #4A7C2F;
+            --green-light:   #7DB544;
+            --green-pale:    #EFF5E8;
+            --green-muted:   #D4E8C2;
+            --earth:         #8B6914;
+            --earth-light:   #C4962E;
+            --cream:         #F8F5EE;
+            --cream-dark:    #EDE8DF;
+            --text-dark:     #1C2B12;
+            --text-mid:      #3D5229;
+            --text-light:    #6B7F5A;
+            --white:         #FFFFFF;
+
+            --font-heading:  'Playfair Display', Georgia, serif;
+            --font-body:     'Inter', -apple-system, sans-serif;
+
+            --max-width:     1100px;
+            --section-pad:   80px 24px;
+            --radius:        12px;
+            --shadow:        0 4px 24px rgba(30,64,18,0.10);
+            --shadow-lg:     0 8px 48px rgba(30,64,18,0.16);
+        }
+
+        /* ============================================
+           RESET & BASE
+        ============================================ */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font-body);
+            background: var(--cream);
+            color: var(--text-dark);
+            line-height: 1.7;
+            font-size: 16px;
+        }
+        img { max-width: 100%; height: auto; display: block; }
+        a { color: var(--green-bright); text-decoration: none; }
+        a:hover { color: var(--green-light); }
+
+        /* ============================================
+           TYPOGRAPHY
+        ============================================ */
+        h1, h2, h3, h4 { font-family: var(--font-heading); color: var(--text-dark); line-height: 1.2; }
+        h1 { font-size: clamp(2.2rem, 5vw, 3.8rem); }
+        h2 { font-size: clamp(1.8rem, 3.5vw, 2.8rem); margin-bottom: 16px; }
+        h3 { font-size: clamp(1.1rem, 2vw, 1.4rem); }
+        p  { margin-bottom: 12px; color: var(--text-mid); }
+        p:last-child { margin-bottom: 0; }
+
+        .section-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--green-light);
+            margin-bottom: 10px;
+            display: block;
+        }
+        .container { max-width: var(--max-width); margin: 0 auto; padding: 0 24px; }
+        section { padding: var(--section-pad); }
+        .section-header { margin-bottom: 48px; }
+        .section-header.centered { text-align: center; }
+
+        /* ============================================
+           BUTTONS
+        ============================================ */
+        .btn {
+            display: inline-block;
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-family: var(--font-body);
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 2px solid transparent;
+            text-decoration: none;
+        }
+        .btn-primary { background: var(--green-bright); color: var(--white); border-color: var(--green-bright); }
+        .btn-primary:hover { background: var(--green-mid); border-color: var(--green-mid); color: var(--white); transform: translateY(-2px); box-shadow: var(--shadow); }
+        .btn-outline { background: transparent; color: var(--white); border-color: rgba(255,255,255,0.7); }
+        .btn-outline:hover { background: rgba(255,255,255,0.15); border-color: var(--white); color: var(--white); }
+
+        /* ============================================
+           NAVIGATION
+        ============================================ */
+        .nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            background: rgba(30,64,18,0.97);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 0 24px;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.2);
+        }
+        .nav-inner {
+            max-width: var(--max-width); margin: 0 auto;
+            display: flex; align-items: center; justify-content: space-between;
+            height: 68px;
+        }
+        .nav-logo {
+            font-family: var(--font-heading); font-size: 1.35rem;
+            color: var(--white); font-weight: 700; text-decoration: none;
+        }
+        .nav-logo span { color: var(--green-light); }
+        .nav-links { display: flex; align-items: center; gap: 4px; list-style: none; }
+        .nav-links a {
+            color: rgba(255,255,255,0.85); font-size: 0.86rem; font-weight: 500;
+            padding: 8px 13px; border-radius: 6px; transition: all 0.2s; text-decoration: none;
+        }
+        .nav-links a:hover { color: var(--white); background: rgba(255,255,255,0.12); }
+        .nav-links .nav-cta { background: var(--green-light); color: var(--white); border-radius: 50px; }
+        .nav-links .nav-cta:hover { background: var(--green-bright); color: var(--white); }
+        .nav-toggle {
+            display: none; background: none; border: none; cursor: pointer;
+            padding: 8px; flex-direction: column; gap: 5px;
+        }
+        .nav-toggle span { display: block; width: 24px; height: 2px; background: var(--white); border-radius: 2px; }
+
+        /* ============================================
+           HERO
+        ============================================ */
+        .hero {
+            min-height: 100vh;
+            background:
+                linear-gradient(135deg,
+                    rgba(30,64,18,0.94) 0%,
+                    rgba(45,90,27,0.90) 40%,
+                    rgba(74,124,47,0.82) 100%),
+                radial-gradient(circle at 20% 80%, rgba(125,181,68,0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(30,64,18,0.5) 0%, transparent 50%),
+                linear-gradient(180deg, #1a3a0e 0%, #2D5A1B 50%, #3d7522 100%);
+            display: flex; align-items: center;
+            padding: 100px 24px 60px;
+            position: relative; overflow: hidden;
+        }
+        .hero::before {
+            content: ''; position: absolute;
+            width: 700px; height: 700px; border-radius: 50%;
+            border: 1px solid rgba(125,181,68,0.12);
+            top: -120px; right: -120px;
+        }
+        .hero::after {
+            content: ''; position: absolute;
+            width: 450px; height: 450px; border-radius: 50%;
+            border: 1px solid rgba(125,181,68,0.08);
+            bottom: -100px; left: -100px;
+        }
+        .hero-inner { max-width: var(--max-width); margin: 0 auto; position: relative; z-index: 1; }
+        .hero-badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(125,181,68,0.2); border: 1px solid rgba(125,181,68,0.4);
+            color: var(--green-light); font-size: 0.78rem; font-weight: 600;
+            letter-spacing: 0.12em; text-transform: uppercase;
+            padding: 8px 18px; border-radius: 50px; margin-bottom: 28px;
+        }
+        .hero-badge::before { content: '🌱'; }
+        .hero h1 { color: var(--white); margin-bottom: 20px; max-width: 680px; }
+        .hero h1 em { font-style: normal; color: var(--green-light); }
+        .hero-sub {
+            font-size: 1.12rem; color: rgba(255,255,255,0.82);
+            max-width: 560px; margin-bottom: 36px; line-height: 1.8;
+        }
+        .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 60px; }
+        .hero-stats { display: flex; gap: 48px; flex-wrap: wrap; }
+        .hero-stat { display: flex; flex-direction: column; }
+        .hero-stat strong { font-family: var(--font-heading); font-size: 2rem; color: var(--white); line-height: 1; }
+        .hero-stat span { font-size: 0.78rem; color: rgba(255,255,255,0.62); font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; margin-top: 5px; }
+
+        /* ============================================
+           STATUS BANNER
+        ============================================ */
+        .status-banner {
+            background: var(--earth); color: var(--white);
+            padding: 13px 24px; text-align: center; font-size: 0.88rem; font-weight: 500;
+        }
+        .status-banner strong { color: #FFD97D; }
+        .status-banner a { color: #FFD97D; text-decoration: underline; }
+
+        /* ============================================
+           ABOUT
+        ============================================ */
+        .about { background: var(--white); }
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+        .about-text p { font-size: 1.03rem; }
+        .about-features { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 28px; }
+        .feature-item { display: flex; align-items: flex-start; gap: 12px; }
+        .feature-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 2px; }
+        .feature-item h4 { font-family: var(--font-body); font-size: 0.88rem; font-weight: 600; color: var(--text-dark); margin-bottom: 2px; }
+        .feature-item p { font-size: 0.80rem; color: var(--text-light); margin: 0; }
+        .about-visual { background: linear-gradient(135deg, var(--green-pale) 0%, var(--green-muted) 100%); border-radius: var(--radius); padding: 36px; }
+        .location-card { background: var(--white); border-radius: 10px; padding: 22px 24px; box-shadow: var(--shadow); margin-bottom: 14px; }
+        .location-card:last-child { margin-bottom: 0; }
+        .location-card h3 { font-size: 0.95rem; color: var(--green-mid); margin-bottom: 5px; font-family: var(--font-body); font-weight: 600; }
+        .location-card p { font-size: 0.85rem; color: var(--text-light); margin: 0; }
+
+        /* ============================================
+           PROJECT STATUS TIMELINE
+        ============================================ */
+        .status-section { background: var(--green-deep); }
+        .status-section .section-label { color: var(--green-light); }
+        .status-section h2 { color: var(--white); }
+        .status-section > .container > .section-header > p { color: rgba(255,255,255,0.72); }
+        .timeline { display: flex; flex-direction: column; max-width: 680px; margin-top: 40px; }
+        .timeline-item { display: flex; gap: 22px; padding-bottom: 36px; }
+        .timeline-item:last-child { padding-bottom: 0; }
+        .timeline-left { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; width: 46px; }
+        .timeline-dot {
+            width: 46px; height: 46px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.1rem; flex-shrink: 0; z-index: 1;
+        }
+        .timeline-dot.done    { background: var(--green-light); color: var(--white); font-weight: 700; }
+        .timeline-dot.active  { background: var(--earth-light); color: var(--white); animation: pulse 2s infinite; }
+        .timeline-dot.upcoming { background: rgba(255,255,255,0.08); border: 2px solid rgba(255,255,255,0.18); color: rgba(255,255,255,0.4); }
+        @keyframes pulse {
+            0%,100% { box-shadow: 0 0 0 0 rgba(196,150,46,0.4); }
+            50%      { box-shadow: 0 0 0 10px rgba(196,150,46,0); }
+        }
+        .timeline-line { width: 2px; flex: 1; background: rgba(255,255,255,0.12); margin-top: 6px; }
+        .timeline-item:last-child .timeline-line { display: none; }
+        .timeline-content { padding-top: 8px; }
+        .timeline-content h3 { color: var(--white); font-family: var(--font-body); font-size: 1rem; font-weight: 600; margin-bottom: 5px; }
+        .timeline-content p  { font-size: 0.87rem; color: rgba(255,255,255,0.58); margin: 0; }
+        .timeline-tag { display: inline-block; font-size: 0.70rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 10px; border-radius: 50px; margin-bottom: 6px; }
+        .tag-done     { background: rgba(125,181,68,0.22); color: var(--green-light); }
+        .tag-active   { background: rgba(196,150,46,0.22); color: var(--earth-light); }
+        .tag-upcoming { background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.45); }
+
+        /* ============================================
+           PLAT MAP
+        ============================================ */
+        .plat-map { background: var(--cream-dark); }
+        .plat-map-wrapper { background: var(--white); border-radius: var(--radius); padding: 32px; box-shadow: var(--shadow); text-align: center; }
+        .plat-map-placeholder {
+            background: linear-gradient(135deg, var(--green-pale), var(--green-muted));
+            border-radius: 8px; padding: 80px 24px; margin-bottom: 14px;
+            border: 2px dashed #b5d490;
+        }
+        .plat-map-placeholder .map-icon { font-size: 3.2rem; margin-bottom: 16px; }
+        .plat-map-placeholder p { color: var(--text-light); font-size: 0.92rem; }
+        .plat-map-placeholder strong { color: var(--text-mid); }
+        .plat-map-caption { font-size: 0.82rem; color: var(--text-light); margin-top: 10px; }
+
+        /* ============================================
+           CITY MEETINGS
+        ============================================ */
+        .meetings { background: var(--white); }
+        .meeting-placeholder {
+            background: var(--cream); border-radius: var(--radius); padding: 44px 32px;
+            text-align: center; border: 1.5px dashed var(--cream-dark); margin-bottom: 32px;
+        }
+        .meeting-placeholder p { font-size: 0.92rem; color: var(--text-light); margin-top: 8px; }
+        .why-attend {
+            background: linear-gradient(135deg, var(--green-pale), var(--white));
+            border-radius: var(--radius); padding: 32px;
+            border: 1px solid var(--green-muted);
+        }
+        .why-attend h3 { font-size: 1.05rem; margin-bottom: 14px; color: var(--green-deep); font-family: var(--font-body); font-weight: 600; }
+        .why-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+        .why-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.92rem; color: var(--text-mid); }
+        .why-list li::before { content: '🌿'; flex-shrink: 0; margin-top: 1px; }
+
+        /* Upcoming meeting cards (shown when meetings are scheduled) */
+        .meetings-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 32px; }
+        .meeting-card { background: var(--cream); border-radius: var(--radius); padding: 28px; border-left: 4px solid var(--green-bright); }
+        .meeting-card h3 { font-family: var(--font-body); font-size: 0.98rem; font-weight: 600; margin-bottom: 6px; }
+        .meeting-date { font-size: 0.82rem; font-weight: 600; color: var(--earth); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; }
+
+        /* ============================================
+           DEVELOPMENT UPDATES
+        ============================================ */
+        .updates { background: var(--green-pale); }
+        .updates-feed { display: flex; flex-direction: column; gap: 20px; margin-top: 40px; }
+        .update-card { background: var(--white); border-radius: var(--radius); padding: 28px; box-shadow: var(--shadow); display: flex; gap: 24px; align-items: flex-start; }
+        .update-date-block { flex-shrink: 0; text-align: center; background: var(--green-pale); border-radius: 8px; padding: 12px 16px; min-width: 68px; }
+        .update-month { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--green-bright); }
+        .update-day   { font-family: var(--font-heading); font-size: 2rem; color: var(--text-dark); line-height: 1; }
+        .update-year  { font-size: 0.68rem; color: var(--text-light); }
+        .update-content h3 { font-family: var(--font-body); font-size: 1rem; font-weight: 600; margin-bottom: 6px; color: var(--text-dark); }
+        .update-content p  { font-size: 0.89rem; color: var(--text-mid); margin: 0; }
+        .update-tag { display: inline-block; font-size: 0.70rem; font-weight: 600; padding: 3px 10px; border-radius: 50px; margin-bottom: 8px; background: var(--green-pale); color: var(--green-bright); border: 1px solid var(--green-muted); }
+
+        /* ============================================
+           SUNNIE SPRINGS FARM
+        ============================================ */
+        .farm { background: var(--cream-dark); position: relative; overflow: hidden; }
+        .farm::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background:
+                radial-gradient(circle at 90% 10%, rgba(125,181,68,0.09) 0%, transparent 50%),
+                radial-gradient(circle at 10% 90%, rgba(45,90,27,0.06) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        .farm-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 40px; margin-bottom: 48px; flex-wrap: wrap; }
+        .farm-intro { max-width: 560px; }
+        .farm-stats-mini { display: flex; gap: 20px; flex-shrink: 0; }
+        .farm-stat { text-align: center; background: var(--white); border-radius: 10px; padding: 20px 24px; box-shadow: var(--shadow); min-width: 88px; }
+        .farm-stat strong { display: block; font-family: var(--font-heading); font-size: 1.9rem; color: var(--green-bright); }
+        .farm-stat span { font-size: 0.73rem; color: var(--text-light); font-weight: 500; }
+        .farm-highlights { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; margin-bottom: 44px; }
+        .farm-highlight { background: var(--white); border-radius: var(--radius); padding: 28px 24px; box-shadow: var(--shadow); text-align: center; }
+        .farm-highlight .icon { font-size: 2rem; margin-bottom: 12px; }
+        .farm-highlight h3 { font-size: 0.98rem; margin-bottom: 6px; font-family: var(--font-body); font-weight: 600; }
+        .farm-highlight p { font-size: 0.84rem; color: var(--text-light); margin: 0; }
+        .farm-updates-label {
+            font-size: 0.78rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+            color: var(--green-bright); margin-bottom: 16px;
+            display: flex; align-items: center; gap: 12px;
+        }
+        .farm-updates-label::after { content: ''; flex: 1; height: 1px; background: var(--green-muted); }
+        .farm-updates-feed { display: flex; flex-direction: column; gap: 16px; }
+        .farm-update { background: var(--white); border-radius: 10px; padding: 22px 24px; box-shadow: var(--shadow); display: flex; align-items: flex-start; gap: 16px; }
+        .farm-update-icon { font-size: 1.3rem; flex-shrink: 0; margin-top: 2px; }
+        .farm-update h4 { font-family: var(--font-body); font-size: 0.95rem; font-weight: 600; color: var(--text-dark); margin-bottom: 4px; }
+        .farm-update p { font-size: 0.84rem; color: var(--text-light); margin: 0; }
+        .farm-update-date { font-size: 0.73rem; color: var(--text-light); margin-bottom: 4px; }
+
+        /* ============================================
+           CONTACT
+        ============================================ */
+        .contact { background: var(--white); }
+        .contact-inner { display: grid; grid-template-columns: 1fr 1.4fr; gap: 64px; align-items: start; }
+        .contact-info p { font-size: 1rem; margin-bottom: 24px; }
+        .contact-perks { display: flex; flex-direction: column; gap: 18px; }
+        .contact-perk { display: flex; align-items: flex-start; gap: 14px; }
+        .contact-perk-icon { font-size: 1.3rem; flex-shrink: 0; margin-top: 1px; }
+        .contact-perk h4 { font-family: var(--font-body); font-size: 0.9rem; font-weight: 600; margin-bottom: 2px; }
+        .contact-perk p { font-size: 0.82rem; color: var(--text-light); margin: 0; }
+        .contact-form { background: var(--cream); border-radius: var(--radius); padding: 36px; box-shadow: var(--shadow); }
+        .contact-form h3 { font-family: var(--font-heading); margin-bottom: 24px; font-size: 1.3rem; }
+        .form-group { margin-bottom: 18px; }
+        .form-group label { display: block; font-size: 0.84rem; font-weight: 600; color: var(--text-dark); margin-bottom: 6px; }
+        .form-group input,
+        .form-group textarea {
+            width: 100%; padding: 13px 16px;
+            border: 1.5px solid var(--cream-dark); border-radius: 8px;
+            font-family: var(--font-body); font-size: 0.92rem;
+            color: var(--text-dark); background: var(--white);
+            transition: border-color 0.2s; outline: none;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus { border-color: var(--green-bright); box-shadow: 0 0 0 3px rgba(125,181,68,0.15); }
+        .form-group textarea { resize: vertical; min-height: 120px; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .form-submit {
+            width: 100%; padding: 16px;
+            background: var(--green-bright); color: var(--white);
+            border: none; border-radius: 50px;
+            font-family: var(--font-body); font-size: 1rem; font-weight: 600;
+            cursor: pointer; transition: all 0.2s;
+        }
+        .form-submit:hover { background: var(--green-mid); transform: translateY(-2px); box-shadow: var(--shadow); }
+        .form-note { font-size: 0.76rem; color: var(--text-light); text-align: center; margin-top: 12px; }
+
+        /* ============================================
+           FOOTER
+        ============================================ */
+        .footer { background: var(--green-deep); color: rgba(255,255,255,0.72); padding: 52px 24px 32px; }
+        .footer-inner { max-width: var(--max-width); margin: 0 auto; }
+        .footer-top {
+            display: flex; justify-content: space-between; align-items: flex-start;
+            gap: 40px; flex-wrap: wrap;
+            padding-bottom: 32px; border-bottom: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 24px;
+        }
+        .footer-brand { font-family: var(--font-heading); font-size: 1.5rem; color: var(--white); margin-bottom: 8px; }
+        .footer-tagline { font-size: 0.85rem; max-width: 280px; }
+        .footer-links h4 { font-size: 0.78rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; color: var(--green-light); margin-bottom: 12px; font-family: var(--font-body); }
+        .footer-links ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+        .footer-links a { font-size: 0.87rem; color: rgba(255,255,255,0.62); text-decoration: none; transition: color 0.2s; }
+        .footer-links a:hover { color: var(--white); }
+        .footer-bottom { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+        .footer-bottom p { font-size: 0.78rem; margin: 0; }
+
+        /* ============================================
+           RESPONSIVE
+        ============================================ */
+        @media (max-width: 900px) {
+            .about-grid,
+            .contact-inner { grid-template-columns: 1fr; gap: 36px; }
+            .farm-highlights { grid-template-columns: 1fr 1fr; }
+            .meetings-grid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 640px) {
+            :root { --section-pad: 56px 20px; }
+            .nav-links { display: none; flex-direction: column; position: absolute; top: 68px; left: 0; right: 0; background: rgba(30,64,18,0.98); padding: 12px; gap: 2px; }
+            .nav-links.open { display: flex; }
+            .nav-toggle { display: flex; }
+            .hero-actions { flex-direction: column; }
+            .hero-stats { gap: 28px; }
+            .farm-highlights { grid-template-columns: 1fr; }
+            .farm-stats-mini { flex-wrap: wrap; justify-content: center; }
+            .farm-header { flex-direction: column; }
+            .form-row { grid-template-columns: 1fr; }
+            .update-card { flex-direction: column; gap: 14px; }
+            .footer-top { flex-direction: column; }
+            .footer-bottom { flex-direction: column; align-items: flex-start; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ===================== NAVIGATION ===================== -->
+<nav class="nav" id="nav">
+    <div class="nav-inner">
+        <a href="#home" class="nav-logo">Sunnie <span>Springs</span></a>
+        <ul class="nav-links" id="nav-links">
+            <li><a href="#about">The Development</a></li>
+            <li><a href="#status">Status</a></li>
+            <li><a href="#plat-map">Plat Map</a></li>
+            <li><a href="#meetings">City Meetings</a></li>
+            <li><a href="#updates">Updates</a></li>
+            <li><a href="#farm">The Farm</a></li>
+            <li><a href="#contact" class="nav-cta">Express Interest</a></li>
+        </ul>
+        <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+</nav>
+
+<!-- ===================== STATUS BANNER ===================== -->
+<div class="status-banner">
+    <strong>🏙️ Active City Review</strong> — Second 20-day review period underway. Final approval targeted within 90 days of May 2026.
+    <a href="#status">See full timeline →</a>
+</div>
+
+<!-- ===================== HERO ===================== -->
+<section class="hero" id="home">
+    <div class="hero-inner">
+        <div class="hero-badge">Pleasant View, Utah</div>
+        <h1>Welcome to<br><em>Sunnie Springs</em></h1>
+        <p class="hero-sub">A new 13-lot residential community rooted in nature, community, and the beauty of northern Utah. Be part of something growing from the ground up.</p>
+        <div class="hero-actions">
+            <a href="#contact" class="btn btn-primary">Express Interest in a Lot</a>
+            <a href="#about" class="btn btn-outline">Learn About the Community</a>
+        </div>
+        <div class="hero-stats">
+            <div class="hero-stat">
+                <strong>13</strong>
+                <span>Residential Lots</span>
+            </div>
+            <div class="hero-stat">
+                <strong>PV</strong>
+                <span>Pleasant View, UT</span>
+            </div>
+            <div class="hero-stat">
+                <strong>2026</strong>
+                <span>Approval Target</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===================== ABOUT ===================== -->
+<section class="about" id="about">
+    <div class="container">
+        <div class="about-grid">
+            <div class="about-text">
+                <span class="section-label">About the Development</span>
+                <h2>A Community Designed Around Nature</h2>
+                <p>Sunnie Springs is a 13-lot residential subdivision being developed in Pleasant View, Utah — a community known for its open landscapes, mountain views, and strong sense of neighborhood.</p>
+                <p>This is more than a subdivision. It's a chance to put down roots in a place where families grow, neighbors know each other, and the land itself is something to be proud of.</p>
+                <div class="about-features">
+                    <div class="feature-item">
+                        <div class="feature-icon">🌲</div>
+                        <div>
+                            <h4>13 Residential Lots</h4>
+                            <p>Thoughtfully laid out for privacy and community</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">📍</div>
+                        <div>
+                            <h4>Pleasant View, Utah</h4>
+                            <p>Weber County — close to amenities, open to nature</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">✅</div>
+                        <div>
+                            <h4>Rezone Approved</h4>
+                            <p>All engineering plans submitted and reviewed</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🌊</div>
+                        <div>
+                            <h4>Wetlands Respected</h4>
+                            <p>Development navigated with full regulatory care</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="about-visual">
+                <div class="location-card">
+                    <h3>📍 Location</h3>
+                    <p>Pleasant View, Utah — Weber County</p>
+                </div>
+                <div class="location-card">
+                    <h3>👨‍💼 Developer</h3>
+                    <p>Jeff Lee — local developer with deep roots in Utah real estate</p>
+                </div>
+                <div class="location-card">
+                    <h3>🏡 Lot Type</h3>
+                    <p>Residential single-family &mdash; 13 lots total</p>
+                </div>
+                <div class="location-card">
+                    <h3>📅 Timeline</h3>
+                    <p>Final city approval targeted within 90 days of May 2026</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===================== PROJECT STATUS ===================== -->
+<section class="status-section" id="status">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-label">Where We Are</span>
+            <h2>Project Status</h2>
+            <p>Here's exactly where Sunnie Springs stands — updated as each milestone is reached.</p>
+        </div>
+        <div class="timeline">
+
+            <div class="timeline-item">
+                <div class="timeline-left">
+                    <div class="timeline-dot done">✓</div>
+                    <div class="timeline-line"></div>
+                </div>
+                <div class="timeline-content">
+                    <span class="timeline-tag tag-done">Complete</span>
+                    <h3>Rezoning Approved</h3>
+                    <p>The property has been successfully rezoned for residential development by Pleasant View City.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-left">
+                    <div class="timeline-dot done">✓</div>
+                    <div class="timeline-line"></div>
+                </div>
+                <div class="timeline-content">
+                    <span class="timeline-tag tag-done">Complete</span>
+                    <h3>Engineering Plans Submitted</h3>
+                    <p>All engineering plans have been submitted to Pleasant View City for review.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-left">
+                    <div class="timeline-dot done">✓</div>
+                    <div class="timeline-line"></div>
+                </div>
+                <div class="timeline-content">
+                    <span class="timeline-tag tag-done">Complete</span>
+                    <h3>First Review Requirements Fulfilled</h3>
+                    <p>Every requirement from the city's first review period has been addressed and submitted.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-left">
+                    <div class="timeline-dot active">⟳</div>
+                    <div class="timeline-line"></div>
+                </div>
+                <div class="timeline-content">
+                    <span class="timeline-tag tag-active">In Progress</span>
+                    <h3>Second City Review</h3>
+                    <p>The second 20-day review period began approximately April 30, 2026. We are actively engaged with Pleasant View City and expect to move to final approval soon.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-left">
+                    <div class="timeline-dot upcoming">○</div>
+                    <div class="timeline-line"></div>
+                </div>
+                <div class="timeline-content">
+                    <span class="timeline-tag tag-upcoming">Upcoming</span>
+                    <h3>Final City Approval</h3>
+                    <p>Targeted within 90 days of May 2026. This is the final step before development begins.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-left">
+                    <div class="timeline-dot upcoming">○</div>
+                    <div class="timeline-line"></div>
+                </div>
+                <div class="timeline-content">
+                    <span class="timeline-tag tag-upcoming">Upcoming</span>
+                    <h3>Site Development Begins</h3>
+                    <p>Roads, utilities, and infrastructure will be built before lots are made available to buyers.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ===================== PLAT MAP ===================== -->
+<section class="plat-map" id="plat-map">
+    <div class="container">
+        <div class="section-header centered">
+            <span class="section-label">The Layout</span>
+            <h2>Plat Map</h2>
+            <p>A detailed view of the 13-lot layout, property lines, and community design.</p>
+        </div>
+        <div class="plat-map-wrapper">
+            <!--
+                PLAT MAP: To add the real plat map, replace the placeholder div below with:
+                <img src="images/plat-map.jpg" alt="Sunnie Springs Plat Map — Pleasant View, Utah">
+            -->
+            <div class="plat-map-placeholder">
+                <div class="map-icon">🗺️</div>
+                <p><strong>Plat Map Coming Soon</strong></p>
+                <p>The official plat map will be posted here shortly.<br>Contact us below for an early look.</p>
+            </div>
+            <p class="plat-map-caption">Official plat map — Sunnie Springs Subdivision, Pleasant View, Utah</p>
+        </div>
+    </div>
+</section>
+
+<!-- ===================== CITY MEETINGS ===================== -->
+<section class="meetings" id="meetings">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-label">Get Involved</span>
+            <h2>City Meetings</h2>
+            <p>Your presence matters. Prospective buyers who attend Pleasant View City meetings help demonstrate real community support for Sunnie Springs. Here's how to be part of it.</p>
+        </div>
+
+        <!--
+            MEETINGS: When meetings are scheduled, replace the placeholder below with meeting cards:
+
+            <div class="meetings-grid">
+                <div class="meeting-card">
+                    <div class="meeting-date">Tuesday, July 15, 2026 — 6:00 PM</div>
+                    <h3>Pleasant View City Council Meeting</h3>
+                    <p>455 W 1270 N, Pleasant View, UT 84414</p>
+                    <p style="margin-top:10px; font-size:0.85rem; color:var(--text-light);">Sunnie Springs development is on the agenda. Your attendance shows community support.</p>
+                </div>
+            </div>
+        -->
+
+        <div class="meeting-placeholder">
+            <p style="font-size:1.6rem;">📅</p>
+            <p><strong style="color:var(--text-mid);">No Meetings Currently Scheduled</strong></p>
+            <p>Check back here for upcoming Pleasant View City meetings. We'll post dates, times, and locations as soon as they're announced so you can show up and show your support.</p>
+        </div>
+
+        <div class="why-attend">
+            <h3>🌿 Why Your Presence at City Meetings Matters</h3>
+            <ul class="why-list">
+                <li>Community support sends a strong, positive signal to city officials that this development is wanted and welcomed.</li>
+                <li>Prospective buyers who show up demonstrate genuine neighborhood interest — it helps build momentum for approval.</li>
+                <li>Meetings are open to the public — simply attending makes an impact, no speaking required.</li>
+                <li>You'll hear directly from city officials about the approval timeline and any outstanding questions.</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- ===================== DEVELOPMENT UPDATES ===================== -->
+<section class="updates" id="updates">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-label">News &amp; Progress</span>
+            <h2>Development Updates</h2>
+            <p>Follow along as Sunnie Springs moves from approval to reality. Posted as milestones are reached — newest first.</p>
+        </div>
+
+        <div class="updates-feed">
+            <!--
+                UPDATES: Add new updates at the TOP of this list, following the same card format.
+            -->
+
+            <div class="update-card">
+                <div class="update-date-block">
+                    <div class="update-month">Jun</div>
+                    <div class="update-day">2</div>
+                    <div class="update-year">2026</div>
+                </div>
+                <div class="update-content">
+                    <span class="update-tag">Website Launch</span>
+                    <h3>Sunnie Springs Website Is Live</h3>
+                    <p>Welcome to the official Sunnie Springs development update page. We've created this site to keep prospective buyers informed every step of the way. Bookmark this page and check back regularly for city approval updates, meeting notices, and project milestones. If you're interested in a lot, use the contact form below — we'd love to hear from you.</p>
+                </div>
+            </div>
+
+            <div class="update-card">
+                <div class="update-date-block">
+                    <div class="update-month">Apr</div>
+                    <div class="update-day">30</div>
+                    <div class="update-year">2026</div>
+                </div>
+                <div class="update-content">
+                    <span class="update-tag">City Review</span>
+                    <h3>Second 20-Day City Review Period Underway</h3>
+                    <p>Following successful completion of all first-review requirements, Pleasant View City has initiated its second review period. All engineering plans and required documentation have been submitted. We're actively engaged with the city and targeting final approval within 90 days.</p>
+                </div>
+            </div>
+
+            <div class="update-card">
+                <div class="update-date-block">
+                    <div class="update-month">Early</div>
+                    <div class="update-day" style="font-size:1.3rem; padding-top:4px;">2026</div>
+                    <div class="update-year">&nbsp;</div>
+                </div>
+                <div class="update-content">
+                    <span class="update-tag">Milestone</span>
+                    <h3>Rezoning Approved &amp; Engineering Plans Submitted</h3>
+                    <p>A major early milestone — the property was successfully rezoned for residential development, and all engineering plans were submitted to Pleasant View City. All first-review requirements were subsequently fulfilled, clearing the path to the second review stage.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ===================== SUNNIE SPRINGS FARM ===================== -->
+<section class="farm" id="farm">
+    <div class="container">
+        <div class="farm-header">
+            <div class="farm-intro">
+                <span class="section-label">Part of the Sunnie Springs Community</span>
+                <h2>Sunnie Springs Farm</h2>
+                <p>A separate — but deeply connected — piece of the Sunnie Springs identity. The Sunnie Springs Farm is a living, growing 2-acre farm in Pleasant View, Utah: 200+ plants and trees, 8 ponds, active irrigation, and a 3,000 sq ft greenhouse arriving fall 2026.</p>
+                <p>This is the spirit of Sunnie Springs made visible — a community rooted in the land, in growth, and in the good life that northern Utah makes possible.</p>
+            </div>
+            <div class="farm-stats-mini">
+                <div class="farm-stat">
+                    <strong>200+</strong>
+                    <span>Plants &amp; Trees</span>
+                </div>
+                <div class="farm-stat">
+                    <strong>8</strong>
+                    <span>Ponds</span>
+                </div>
+                <div class="farm-stat">
+                    <strong>2</strong>
+                    <span>Acres</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="farm-highlights">
+            <div class="farm-highlight">
+                <div class="icon">🍎</div>
+                <h3>200+ Plants &amp; Trees</h3>
+                <p>Fruit trees, ornamentals, perennials, and edibles — all actively growing on 2 acres of Pleasant View land.</p>
+            </div>
+            <div class="farm-highlight">
+                <div class="icon">💧</div>
+                <h3>8 Ponds &amp; Full Irrigation</h3>
+                <p>A fully irrigated property with new sprinkler systems and 8 ponds woven throughout the landscape.</p>
+            </div>
+            <div class="farm-highlight">
+                <div class="icon">🏡</div>
+                <h3>Greenhouse — Fall 2026</h3>
+                <p>A 3,000 sq ft greenhouse is planned for fall 2026, extending the growing season and expanding what's possible.</p>
+            </div>
+        </div>
+
+        <div class="farm-updates-label">Farm Updates</div>
+        <div class="farm-updates-feed">
+            <!--
+                FARM UPDATES: Add new farm updates at the TOP of this list, following the same card format.
+            -->
+            <div class="farm-update">
+                <div class="farm-update-icon">🌱</div>
+                <div>
+                    <div class="farm-update-date">June 2026</div>
+                    <h4>Farm Is Growing — Follow Along</h4>
+                    <p>The Sunnie Springs Farm is actively developing with new plantings, pond improvements, and daily care. We'll post regular updates here — photos, new additions, seasonal highlights, and progress on the greenhouse. Check back soon.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===================== CONTACT ===================== -->
+<section class="contact" id="contact">
+    <div class="container">
+        <div class="contact-inner">
+            <div class="contact-info">
+                <span class="section-label">Get in Touch</span>
+                <h2>Interested in a Lot?</h2>
+                <p>Whether you have questions, want details on a specific lot, or simply want to stay informed as we move toward approval — we'd love to hear from you.</p>
+                <div class="contact-perks">
+                    <div class="contact-perk">
+                        <div class="contact-perk-icon">📋</div>
+                        <div>
+                            <h4>Express Early Interest</h4>
+                            <p>Let us know you're interested and we'll keep you updated as lots become available.</p>
+                        </div>
+                    </div>
+                    <div class="contact-perk">
+                        <div class="contact-perk-icon">💬</div>
+                        <div>
+                            <h4>Ask Anything</h4>
+                            <p>Lot size, pricing, location, timeline — no question is too small.</p>
+                        </div>
+                    </div>
+                    <div class="contact-perk">
+                        <div class="contact-perk-icon">🔔</div>
+                        <div>
+                            <h4>Stay in the Loop</h4>
+                            <p>We'll notify you about city meetings, approvals, and when lots officially go on sale.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-form">
+                <h3>Send Us a Message</h3>
+                <!--
+                    FORM: Uses Formsubmit.co — no account needed.
+                    The FIRST submission will trigger a one-time activation email to jefflee.heritageutah@gmail.com.
+                    Click "Confirm" in that email and all future submissions will arrive directly in your inbox.
+                -->
+                <form action="https://formsubmit.co/jefflee.heritageutah@gmail.com" method="POST">
+                    <!-- Formsubmit settings -->
+                    <input type="hidden" name="_subject" value="Sunnie Springs — New Inquiry from Website">
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_next" value="https://sunniesprings.com/#contact">
+                    <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="fname">First Name *</label>
+                            <input type="text" id="fname" name="first_name" placeholder="Jane" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lname">Last Name *</label>
+                            <input type="text" id="lname" name="last_name" placeholder="Smith" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" name="email" placeholder="jane@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" placeholder="(801) 555-0000">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Your Question or Message *</label>
+                        <textarea id="message" name="message" placeholder="Tell us about your interest in Sunnie Springs, or ask us anything about the development, the lots, or the timeline..." required></textarea>
+                    </div>
+                    <button type="submit" class="form-submit">Send Message 🌱</button>
+                    <p class="form-note">Your information is private and will only be used to respond to your inquiry.</p>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="footer">
+    <div class="footer-inner">
+        <div class="footer-top">
+            <div>
+                <div class="footer-brand">Sunnie Springs</div>
+                <p class="footer-tagline">A new residential community rooted in nature, growing in Pleasant View, Utah.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#about">The Development</a></li>
+                    <li><a href="#status">Project Status</a></li>
+                    <li><a href="#plat-map">Plat Map</a></li>
+                    <li><a href="#meetings">City Meetings</a></li>
+                    <li><a href="#updates">Updates</a></li>
+                    <li><a href="#farm">The Farm</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Get in Touch</h4>
+                <ul>
+                    <li><a href="#contact">Express Interest</a></li>
+                    <li><a href="#contact">Ask a Question</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Sunnie Springs Development &mdash; Pleasant View, Utah. All rights reserved.</p>
+            <p>Developed by Jeff Lee</p>
+        </div>
+    </div>
+</footer>
+
+<!-- ===================== JAVASCRIPT ===================== -->
+<script>
+    // Mobile nav toggle
+    const toggle = document.getElementById('nav-toggle');
+    const navLinks = document.getElementById('nav-links');
+    toggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+    navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => navLinks.classList.remove('open'));
+    });
+</script>
+
+</body>
+</html>
