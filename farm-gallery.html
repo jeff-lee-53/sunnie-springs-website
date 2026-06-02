@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farm Gallery — Sunnie Springs Farm, Pleasant View, Utah</title>
+    <meta name="description" content="Photos and videos from Sunnie Springs Farm — 2 acres of ponds, fruit trees, chickens, koi, and growing life in Pleasant View, Utah.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --sun-bright:   #F7C948;
+            --sun-warm:     #E8A020;
+            --sun-deep:     #C07810;
+            --sun-pale:     #FFF8E0;
+            --sun-muted:    #FFE8A0;
+            --sage-dark:    #2A3C1A;
+            --sage-mid:     #4A6830;
+            --sage-light:   #7A9A58;
+            --cream:        #FFFCF4;
+            --cream-dark:   #F5EDD8;
+            --text-dark:    #2A1F08;
+            --text-mid:     #5A4A20;
+            --text-light:   #8A7848;
+            --white:        #FFFFFF;
+
+            --font-heading: 'Playfair Display', Georgia, serif;
+            --font-body:    'Inter', -apple-system, sans-serif;
+            --max-width:    1200px;
+            --radius:       12px;
+            --shadow:       0 4px 24px rgba(200,140,10,0.12);
+            --shadow-lg:    0 8px 48px rgba(200,140,10,0.20);
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { font-family: var(--font-body); background: var(--cream); color: var(--text-dark); line-height: 1.7; }
+        img { max-width: 100%; height: auto; display: block; }
+        a { color: var(--sun-warm); text-decoration: none; }
+
+        /* NAV */
+        .nav {
+            position: sticky; top: 0; z-index: 100;
+            background: rgba(42,60,26,0.97);
+            backdrop-filter: blur(12px);
+            padding: 0 24px;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.2);
+        }
+        .nav-inner {
+            max-width: var(--max-width); margin: 0 auto;
+            display: flex; align-items: center; justify-content: space-between;
+            height: 68px;
+        }
+        .nav-logo { font-family: var(--font-heading); font-size: 1.25rem; color: var(--white); text-decoration: none; }
+        .nav-logo span { color: var(--sun-bright); }
+        .nav-links { display: flex; align-items: center; gap: 8px; list-style: none; }
+        .nav-links a {
+            color: rgba(255,255,255,0.82); font-size: 0.87rem; font-weight: 500;
+            padding: 8px 14px; border-radius: 6px; transition: all 0.2s; text-decoration: none;
+        }
+        .nav-links a:hover { color: var(--white); background: rgba(255,255,255,0.12); }
+        .nav-links .nav-cta {
+            background: var(--sun-bright); color: var(--text-dark);
+            border-radius: 50px; font-weight: 600;
+        }
+        .nav-links .nav-cta:hover { background: var(--sun-warm); color: var(--white); }
+        .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 8px; flex-direction: column; gap: 5px; }
+        .nav-toggle span { display: block; width: 24px; height: 2px; background: var(--white); border-radius: 2px; }
+
+        /* PAGE HEADER */
+        .page-header {
+            background:
+                linear-gradient(160deg, rgba(30,20,0,0.80) 0%, rgba(80,55,5,0.65) 50%, rgba(180,130,10,0.45) 100%),
+                url('images/farm/farm-photo-5.jpg') center 40%/cover no-repeat;
+            padding: 72px 24px 60px;
+            text-align: center;
+        }
+        .page-header .label {
+            display: inline-block;
+            font-size: 0.75rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase;
+            color: var(--sun-bright);
+            background: rgba(247,201,72,0.18); border: 1px solid rgba(247,201,72,0.4);
+            padding: 7px 18px; border-radius: 50px; margin-bottom: 16px;
+        }
+        .page-header h1 { font-family: var(--font-heading); color: var(--white); font-size: clamp(2rem,4vw,3.2rem); margin-bottom: 12px; }
+        .page-header p { color: rgba(255,255,255,0.80); font-size: 1.05rem; max-width: 540px; margin: 0 auto; }
+
+        /* STATS BAR */
+        .stats-bar {
+            background: var(--sage-dark);
+            padding: 20px 24px;
+        }
+        .stats-bar-inner {
+            max-width: var(--max-width); margin: 0 auto;
+            display: flex; justify-content: center; gap: 60px; flex-wrap: wrap;
+        }
+        .stat { text-align: center; }
+        .stat strong { display: block; font-family: var(--font-heading); font-size: 1.8rem; color: var(--sun-bright); line-height: 1; }
+        .stat span { font-size: 0.78rem; color: rgba(255,255,255,0.65); font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; margin-top: 4px; display: block; }
+
+        /* GALLERY SECTION */
+        .gallery-section { padding: 60px 24px; }
+        .gallery-section-inner { max-width: var(--max-width); margin: 0 auto; }
+
+        .gallery-heading {
+            font-size: 0.75rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase;
+            color: var(--sun-warm); margin-bottom: 24px;
+            display: flex; align-items: center; gap: 14px;
+        }
+        .gallery-heading::after { content: ''; flex: 1; height: 1px; background: var(--sun-muted); }
+
+        /* MASONRY-STYLE GRID */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .media-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.22s ease, box-shadow 0.22s ease;
+        }
+        .media-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+
+        .media-card.wide { grid-column: span 2; }
+        .media-card.tall { grid-row: span 2; }
+
+        .media-card img {
+            width: 100%; height: 260px;
+            object-fit: cover; display: block;
+        }
+        .media-card.wide img { height: 300px; }
+        .media-card.tall img { height: 540px; }
+
+        .media-card video {
+            width: 100%; height: 260px;
+            object-fit: cover; display: block; background: #111;
+        }
+        .media-card.wide video { height: 300px; }
+
+        .media-caption {
+            padding: 12px 16px;
+            font-size: 0.84rem; color: var(--text-light); font-weight: 500;
+            background: var(--white);
+            border-top: 1px solid var(--cream-dark);
+        }
+        .media-caption strong { color: var(--text-mid); font-weight: 600; }
+
+        /* BACK LINK */
+        .back-bar {
+            background: var(--sun-pale);
+            border-top: 1px solid var(--sun-muted);
+            padding: 24px;
+            text-align: center;
+        }
+        .back-bar a {
+            display: inline-flex; align-items: center; gap: 8px;
+            color: var(--sun-deep); font-weight: 600; font-size: 0.95rem;
+            text-decoration: none; transition: color 0.2s;
+        }
+        .back-bar a:hover { color: var(--sage-mid); }
+
+        /* FOOTER */
+        .footer { background: var(--sage-dark); color: rgba(255,255,255,0.65); padding: 36px 24px; text-align: center; }
+        .footer p { font-size: 0.82rem; margin: 0; }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .gallery-grid { grid-template-columns: repeat(2,1fr); }
+            .media-card.wide { grid-column: span 1; }
+            .media-card.tall { grid-row: span 1; }
+            .media-card.tall img { height: 260px; }
+        }
+        @media (max-width: 640px) {
+            .nav-links { display: none; flex-direction: column; position: absolute; top: 68px; left: 0; right: 0; background: rgba(42,60,26,0.98); padding: 12px; gap: 2px; }
+            .nav-links.open { display: flex; }
+            .nav-toggle { display: flex; }
+            .gallery-grid { grid-template-columns: 1fr; }
+            .media-card.wide { grid-column: span 1; }
+            .media-card img, .media-card video { height: 280px !important; }
+            .stats-bar-inner { gap: 32px; }
+            .page-header { padding: 52px 20px 44px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+    <div class="nav-inner">
+        <a href="index.html" class="nav-logo">Sunnie <span>Springs</span></a>
+        <ul class="nav-links" id="nav-links">
+            <li><a href="index.html#about">The Development</a></li>
+            <li><a href="index.html#plat-map">Plat Map</a></li>
+            <li><a href="index.html#meetings">City Meetings</a></li>
+            <li><a href="index.html#updates">Updates</a></li>
+            <li><a href="index.html#farm">The Farm</a></li>
+            <li><a href="index.html#contact" class="nav-cta">Express Interest</a></li>
+        </ul>
+        <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+    <div class="label">Pleasant View, Utah</div>
+    <h1>Sunnie Springs Farm</h1>
+    <p>A living, growing 2-acre farm — ponds, fruit trees, free-range chickens, koi, and a greenhouse on the way.</p>
+</div>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+    <div class="stats-bar-inner">
+        <div class="stat"><strong>200+</strong><span>Plants &amp; Trees</span></div>
+        <div class="stat"><strong>8</strong><span>Ponds</span></div>
+        <div class="stat"><strong>2</strong><span>Acres</span></div>
+        <div class="stat"><strong>Fall '26</strong><span>Greenhouse</span></div>
+    </div>
+</div>
+
+<!-- GALLERY -->
+<section class="gallery-section">
+    <div class="gallery-section-inner">
+
+        <!-- PHOTOS -->
+        <div class="gallery-heading">Photos from the Farm</div>
+        <div class="gallery-grid" style="margin-bottom: 40px;">
+
+            <div class="media-card wide">
+                <img src="images/farm/farm-photo-5.jpg" alt="Wide view of Sunnie Springs Farm with Utah mountains" loading="lazy">
+                <div class="media-caption"><strong>The farm taking shape</strong> — Pleasant View, Utah with the Wasatch Range behind 🏔️</div>
+            </div>
+
+            <div class="media-card">
+                <img src="images/farm/farm-photo-3.jpg" alt="Free-range chickens roaming the Sunnie Springs Farm field" loading="lazy">
+                <div class="media-caption"><strong>Free range</strong> — chickens roaming the open field 🐔</div>
+            </div>
+
+            <div class="media-card">
+                <img src="images/farm/farm-photo-1.jpg" alt="Koi fish in one of the Sunnie Springs Farm ponds" loading="lazy">
+                <div class="media-caption"><strong>Koi in the ponds</strong> — active and healthy 🐟</div>
+            </div>
+
+            <div class="media-card">
+                <img src="images/farm/farm-photo-4.jpg" alt="Rooster and hens foraging together in spring grass" loading="lazy">
+                <div class="media-caption"><strong>The flock</strong> — rooster and hens foraging in spring grass 🌿</div>
+            </div>
+
+            <div class="media-card">
+                <img src="images/farm/farm-photo-6.jpg" alt="Koi fish gliding through the pond at Sunnie Springs Farm" loading="lazy">
+                <div class="media-caption"><strong>Koi gliding</strong> — through the pond on a sunny afternoon 🐠</div>
+            </div>
+
+            <div class="media-card">
+                <img src="images/farm/farm-photo-2.jpg" alt="White hen and baby chick at Sunnie Springs Farm" loading="lazy">
+                <div class="media-caption"><strong>Mama hen</strong> — with her baby chick 🐣</div>
+            </div>
+
+        </div>
+
+        <!-- VIDEOS -->
+        <div class="gallery-heading">Farm Videos</div>
+        <div class="gallery-grid">
+
+            <div class="media-card wide">
+                <video controls playsinline preload="metadata">
+                    <source src="images/farm/farm-video-5.mp4" type="video/mp4">
+                </video>
+                <div class="media-caption"><strong>Around the ponds</strong> — ducks, water, and pond life 💧</div>
+            </div>
+
+            <div class="media-card">
+                <video controls playsinline preload="metadata">
+                    <source src="images/farm/farm-video-1.mp4" type="video/mp4">
+                </video>
+                <div class="media-caption"><strong>Life on the farm</strong> 🌿</div>
+            </div>
+
+            <div class="media-card">
+                <video controls playsinline preload="metadata">
+                    <source src="images/farm/farm-video-4.mp4" type="video/mp4">
+                </video>
+                <div class="media-caption"><strong>The ponds in action</strong> 🦆</div>
+            </div>
+
+            <div class="media-card">
+                <video controls playsinline preload="metadata">
+                    <source src="images/farm/farm-video-6.mp4" type="video/mp4">
+                </video>
+                <div class="media-caption"><strong>Summer pond life</strong> 🌞</div>
+            </div>
+
+            <div class="media-card">
+                <video controls playsinline preload="metadata">
+                    <source src="images/farm/farm-video-7.mp4" type="video/mp4">
+                </video>
+                <div class="media-caption"><strong>Morning on the farm</strong> 🌅</div>
+            </div>
+
+            <div class="media-card">
+                <video controls playsinline preload="metadata">
+                    <source src="images/farm/farm-video-8.mp4" type="video/mp4">
+                </video>
+                <div class="media-caption"><strong>The farm in full swing</strong> 🐔</div>
+            </div>
+
+            <div class="media-card">
+                <video controls playsinline preload="metadata">
+                    <source src="images/farm/farm-video-2.mp4" type="video/mp4">
+                </video>
+                <div class="media-caption"><strong>Pond walk</strong> 💧</div>
+            </div>
+
+            <div class="media-card">
+                <video controls playsinline preload="metadata">
+                    <source src="images/farm/farm-video-9.mp4" type="video/mp4">
+                </video>
+                <div class="media-caption"><strong>A quiet moment</strong> 🌾</div>
+            </div>
+
+            <div class="media-card">
+                <video controls playsinline preload="metadata">
+                    <source src="images/farm/farm-video-10.mp4" type="video/mp4">
+                </video>
+                <div class="media-caption"><strong>Water features</strong> 🪨</div>
+            </div>
+
+            <div class="media-card">
+                <video controls playsinline preload="metadata">
+                    <source src="images/farm/farm-video-11.mp4" type="video/mp4">
+                </video>
+                <div class="media-caption"><strong>Farm afternoons</strong> ☀️</div>
+            </div>
+
+            <div class="media-card">
+                <video controls playsinline preload="metadata">
+                    <source src="images/farm/farm-video-12.mp4" type="video/mp4">
+                </video>
+                <div class="media-caption"><strong>Around the property</strong> 🌳</div>
+            </div>
+
+            <div class="media-card">
+                <video controls playsinline preload="metadata">
+                    <source src="images/farm/farm-video-3.mp4" type="video/mp4">
+                </video>
+                <div class="media-caption"><strong>Farm mornings</strong> 🐓</div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- BACK LINK -->
+<div class="back-bar">
+    <a href="index.html#farm">← Back to Sunnie Springs</a>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <p>&copy; 2026 Sunnie Springs Development &mdash; Pleasant View, Utah. Developed by Jeff Lee.</p>
+</footer>
+
+<script>
+    const toggle = document.getElementById('nav-toggle');
+    const navLinks = document.getElementById('nav-links');
+    toggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+    navLinks.querySelectorAll('a').forEach(l => l.addEventListener('click', () => navLinks.classList.remove('open')));
+</script>
+</body>
+</html>
