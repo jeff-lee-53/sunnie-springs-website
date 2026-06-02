@@ -334,6 +334,55 @@
         .farm-update-date { font-size: 0.73rem; color: var(--text-light); margin-bottom: 4px; }
 
         /* ============================================
+           FARM GALLERY
+        ============================================ */
+        .farm-gallery { margin-bottom: 8px; }
+        .farm-gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+        .farm-media-item {
+            background: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .farm-media-item:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+        .farm-media-item img {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+            display: block;
+        }
+        .farm-media-item video {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+            display: block;
+            background: #000;
+        }
+        .farm-media-caption {
+            padding: 10px 14px;
+            font-size: 0.82rem;
+            color: var(--text-light);
+            font-weight: 500;
+            background: var(--white);
+        }
+        @media (max-width: 900px) {
+            .farm-gallery-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 640px) {
+            .farm-gallery-grid { grid-template-columns: 1fr; }
+            .farm-media-item img,
+            .farm-media-item video { height: 280px; }
+        }
+
+        /* ============================================
            CONTACT
         ============================================ */
         .contact { background: var(--white); }
@@ -681,7 +730,40 @@
             </div>
         </div>
 
-        <div class="farm-updates-label">Farm Updates</div>
+        <!-- FARM PHOTO GALLERY -->
+        <div class="farm-updates-label">From the Farm</div>
+        <div class="farm-gallery">
+            <div class="farm-gallery-grid">
+                <div class="farm-media-item">
+                    <img src="images/farm/farm-photo-1.jpg" alt="Koi fish in one of the Sunnie Springs Farm ponds" loading="lazy">
+                    <div class="farm-media-caption">Koi in the ponds 🐟</div>
+                </div>
+                <div class="farm-media-item">
+                    <img src="images/farm/farm-photo-2.jpg" alt="Mother duck and ducklings at Sunnie Springs Farm" loading="lazy">
+                    <div class="farm-media-caption">New arrivals — mama duck & her ducklings 🐣</div>
+                </div>
+                <div class="farm-media-item farm-video-item">
+                    <video controls playsinline preload="metadata" poster="">
+                        <source src="images/farm/farm-video-1.mp4" type="video/mp4">
+                    </video>
+                    <div class="farm-media-caption">Life on the farm 🌿</div>
+                </div>
+                <div class="farm-media-item farm-video-item">
+                    <video controls playsinline preload="metadata">
+                        <source src="images/farm/farm-video-2.mp4" type="video/mp4">
+                    </video>
+                    <div class="farm-media-caption">Around the ponds 💧</div>
+                </div>
+                <div class="farm-media-item farm-video-item">
+                    <video controls playsinline preload="metadata">
+                        <source src="images/farm/farm-video-3.mp4" type="video/mp4">
+                    </video>
+                    <div class="farm-media-caption">Farm mornings 🐔</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="farm-updates-label" style="margin-top:40px;">Farm Updates</div>
         <div class="farm-updates-feed">
             <!--
                 FARM UPDATES: Add new farm updates at the TOP of this list, following the same card format.
@@ -690,8 +772,8 @@
                 <div class="farm-update-icon">🌱</div>
                 <div>
                     <div class="farm-update-date">June 2026</div>
-                    <h4>Farm Is Growing — Follow Along</h4>
-                    <p>The Sunnie Springs Farm is actively developing with new plantings, pond improvements, and daily care. We'll post regular updates here — photos, new additions, seasonal highlights, and progress on the greenhouse. Check back soon.</p>
+                    <h4>The Farm Is Alive and Thriving</h4>
+                    <p>Koi in the ponds, ducks nesting, chickens roaming free — the Sunnie Springs Farm is full of life this summer. With 200+ plants and trees actively growing and 8 ponds established, the foundation is set. Next up: a 3,000 sq ft greenhouse arriving fall 2026. Check back here for ongoing updates, new photos, and seasonal highlights.</p>
                 </div>
             </div>
         </div>
