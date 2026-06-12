@@ -55,8 +55,8 @@
             display: flex; align-items: center; justify-content: space-between;
             height: 68px;
         }
-        .nav-logo { font-family: var(--font-heading); font-size: 1.25rem; color: var(--white); text-decoration: none; }
-        .nav-logo span { color: var(--sun-bright); }
+        .nav-logo { display: flex; align-items: center; text-decoration: none; }
+        .nav-logo img { height: 52px; width: auto; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.18); }
         .nav-links { display: flex; align-items: center; gap: 8px; list-style: none; }
         .nav-links a {
             color: rgba(255,255,255,0.82); font-size: 0.87rem; font-weight: 500;
@@ -199,7 +199,7 @@
 <!-- NAV -->
 <nav class="nav">
     <div class="nav-inner">
-        <a href="index.html" class="nav-logo">Sunnie <span>Springs</span></a>
+        <a href="index.html" class="nav-logo"><img src="images/sunnie-springs-logo-nav.png" alt="Sunnie Springs"></a>
         <ul class="nav-links" id="nav-links">
             <li><a href="index.html#about">The Development</a></li>
             <li><a href="index.html#plat-map">Plat Map</a></li>
