@@ -262,6 +262,35 @@
         .plat-map-caption { font-size: 0.82rem; color: var(--text-light); margin-top: 10px; }
 
         /* ============================================
+           ZONING
+        ============================================ */
+        .zoning { background: var(--white); }
+        .zoning-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+        .zoning-highlights { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 8px; }
+        .zoning-stat {
+            background: var(--sun-pale); border: 1px solid var(--sun-muted);
+            border-radius: var(--radius); padding: 18px 20px;
+        }
+        .zoning-stat strong { display: block; font-family: var(--font-heading); font-size: 1.5rem; color: var(--sun-deep); line-height: 1; margin-bottom: 4px; }
+        .zoning-stat span { font-size: 0.78rem; color: var(--text-light); font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; }
+        .zoning-uses { margin-top: 20px; }
+        .zoning-uses h4 { font-family: var(--font-body); font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--sun-warm); margin-bottom: 10px; }
+        .zoning-uses ul { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+        .zoning-uses li { font-size: 0.9rem; color: var(--text-mid); display: flex; align-items: center; gap: 8px; }
+        .zoning-uses li::before { content: '✓'; color: var(--sage-light); font-weight: 700; flex-shrink: 0; }
+        .zoning-links { display: flex; flex-direction: column; gap: 12px; margin-top: 24px; }
+        .zoning-link-btn {
+            display: inline-flex; align-items: center; gap: 10px;
+            padding: 13px 22px; border-radius: 8px; font-size: 0.9rem; font-weight: 600;
+            text-decoration: none; transition: all 0.2s;
+        }
+        .zoning-link-btn.primary { background: var(--sun-bright); color: var(--text-dark); }
+        .zoning-link-btn.primary:hover { background: var(--sun-warm); color: var(--white); }
+        .zoning-link-btn.secondary { background: var(--cream-dark); color: var(--text-mid); border: 1px solid var(--sun-muted); }
+        .zoning-link-btn.secondary:hover { background: var(--sun-muted); color: var(--text-dark); }
+        .zoning-note { font-size: 0.82rem; color: var(--text-light); margin-top: 12px; font-style: italic; }
+
+        /* ============================================
            CITY MEETINGS
         ============================================ */
         .meetings { background: var(--white); }
@@ -449,6 +478,7 @@
         ============================================ */
         @media (max-width: 900px) {
             .about-grid,
+            .zoning-grid,
             .contact-inner { grid-template-columns: 1fr; gap: 36px; }
             .farm-highlights { grid-template-columns: 1fr 1fr; }
             .meetings-grid { grid-template-columns: 1fr; }
@@ -479,6 +509,7 @@
         <ul class="nav-links" id="nav-links">
             <li><a href="#about">The Development</a></li>
             <li><a href="#plat-map">Plat Map</a></li>
+            <li><a href="#zoning">Zoning</a></li>
             <li><a href="#meetings">City Meetings</a></li>
             <li><a href="#updates">Updates</a></li>
             <li><a href="#farm">The Farm</a></li>
@@ -589,6 +620,55 @@
         <div class="plat-map-wrapper">
             <img src="images/plat-map.jpg" alt="Sunnie Springs Preliminary Plan — Pleasant View, Weber County, Utah" style="border-radius:8px; box-shadow: var(--shadow-lg); width:100%;">
             <p class="plat-map-caption">Sunnie Springs Preliminary Plan — Pleasant View City, Weber County, Utah &nbsp;|&nbsp; Prepared April 28, 2026</p>
+        </div>
+    </div>
+</section>
+
+<!-- ===================== ZONING ===================== -->
+<section class="zoning" id="zoning">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-label">Land Use</span>
+            <h2>Zoning: LSFR</h2>
+            <p>Sunnie Springs is zoned <strong>Limited Single-Family Residential (LSFR)</strong> under Chapter 18.23 of the Pleasant View City Municipal Code — a zone designed to promote, stabilize, and protect a high-quality single-family neighborhood environment.</p>
+        </div>
+        <div class="zoning-grid">
+            <div>
+                <div class="zoning-highlights">
+                    <div class="zoning-stat"><strong>7,260 ft²</strong><span>Min. Lot Size</span></div>
+                    <div class="zoning-stat"><strong>65'</strong><span>Min. Lot Width</span></div>
+                    <div class="zoning-stat"><strong>35'</strong><span>Max. Building Height</span></div>
+                    <div class="zoning-stat"><strong>2 Stories</strong><span>Max. Height Stories</span></div>
+                    <div class="zoning-stat"><strong>25'</strong><span>Front Setback</span></div>
+                    <div class="zoning-stat"><strong>8'</strong><span>Side Yard Min.</span></div>
+                </div>
+                <div class="zoning-uses">
+                    <h4>Permitted Uses</h4>
+                    <ul>
+                        <li>Single-family dwellings</li>
+                        <li>Patio home developments</li>
+                        <li>Accessory Dwelling Units (ADUs)</li>
+                        <li>Two-car enclosed garage required</li>
+                        <li>Public parks &amp; recreational grounds</li>
+                    </ul>
+                </div>
+            </div>
+            <div>
+                <div style="background:var(--sun-pale);border:1px solid var(--sun-muted);border-radius:var(--radius);padding:28px 30px;">
+                    <span class="section-label" style="margin-bottom:8px;">Chapter 18.23 · Title 18 · Pleasant View City Code</span>
+                    <h3 style="font-family:var(--font-body);font-size:1rem;font-weight:600;color:var(--text-dark);margin-bottom:10px;">Limited Single-Family Residential Zone</h3>
+                    <p style="font-size:0.9rem;color:var(--text-mid);margin-bottom:20px;">The LSFR zone provides residential lots for single-family and patio dwellings. All development requires a master plan ensuring consistent architectural character, a homeowners' association, and minimum two-car enclosed garages. No more than two adjacent homes may share the same architecture.</p>
+                    <div class="zoning-links">
+                        <a href="https://www.pleasantviewut.gov/168" target="_blank" rel="noopener" class="zoning-link-btn primary">
+                            🏛️ Pleasant View Planning &amp; Zoning →
+                        </a>
+                        <a href="documents/lsfr-zoning.pdf" target="_blank" class="zoning-link-btn secondary">
+                            📄 Download Chapter 18.23 (PDF)
+                        </a>
+                    </div>
+                    <p class="zoning-note">Source: Pleasant View City Municipal Code, Ord. 2025-6, dated 2/11/25</p>
+                </div>
+            </div>
         </div>
     </div>
 </section>
