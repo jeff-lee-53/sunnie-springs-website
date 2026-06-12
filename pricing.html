@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anticipated Pricing — Sunnie Springs</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --sun-bright:  #F7C948;
+            --sun-warm:    #E8A020;
+            --sun-deep:    #C07810;
+            --sun-pale:    #FFF8E0;
+            --sun-muted:   #FFE8A0;
+            --sage-dark:   #2A3C1A;
+            --sage-mid:    #4A6830;
+            --sage-light:  #7A9A58;
+            --cream:       #FFFCF4;
+            --cream-dark:  #F5EDD8;
+            --text-dark:   #2A1F08;
+            --text-mid:    #5A4A20;
+            --text-light:  #8A7848;
+            --white:       #FFFFFF;
+            --font-heading:'Playfair Display', Georgia, serif;
+            --font-body:   'Inter', -apple-system, sans-serif;
+            --max-width:   1200px;
+            --radius:      12px;
+            --shadow:      0 4px 24px rgba(200,140,10,0.12);
+        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { font-family: var(--font-body); background: var(--cream); color: var(--text-dark); line-height: 1.6; }
+        img { max-width: 100%; display: block; }
+
+        /* ============================================================
+           PASSWORD GATE
+        ============================================================ */
+        #password-gate {
+            position: fixed; inset: 0; z-index: 9999;
+            background:
+                linear-gradient(160deg, rgba(8,30,8,0.72) 0%, rgba(15,50,15,0.55) 50%, rgba(35,70,20,0.35) 100%),
+                url('images/hero-bg.jpg') center 55%/cover no-repeat;
+            display: flex; align-items: center; justify-content: center;
+            padding: 24px;
+        }
+        .gate-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 44px 40px 40px;
+            max-width: 420px; width: 100%;
+            text-align: center;
+            box-shadow: 0 16px 64px rgba(0,0,0,0.35);
+        }
+        .gate-card img {
+            width: 110px; height: auto;
+            margin: 0 auto 20px;
+            border-radius: 12px;
+        }
+        .gate-card h2 {
+            font-family: var(--font-heading);
+            font-size: 1.6rem; color: var(--text-dark);
+            margin-bottom: 8px;
+        }
+        .gate-card p {
+            font-size: 0.9rem; color: var(--text-light);
+            margin-bottom: 24px; line-height: 1.6;
+        }
+        .pw-form {
+            display: flex; flex-direction: column; gap: 12px;
+        }
+        .pw-form input {
+            width: 100%; padding: 13px 18px;
+            border: 2px solid var(--cream-dark);
+            border-radius: 50px; font-size: 0.95rem;
+            font-family: var(--font-body);
+            color: var(--text-dark);
+            outline: none; transition: border 0.2s;
+            text-align: center; letter-spacing: 0.05em;
+        }
+        .pw-form input:focus { border-color: var(--sun-warm); }
+        .pw-form button {
+            width: 100%; padding: 14px;
+            background: var(--sun-bright); color: var(--text-dark);
+            border: none; border-radius: 50px;
+            font-family: var(--font-body); font-size: 0.95rem; font-weight: 700;
+            cursor: pointer; transition: all 0.2s;
+        }
+        .pw-form button:hover { background: var(--sun-warm); color: var(--white); }
+        #pw-error {
+            display: none; margin-top: 12px;
+            font-size: 0.85rem; color: #C0392B; font-weight: 500;
+        }
+        .gate-lock { font-size: 2rem; margin-bottom: 12px; }
+
+        /* ============================================================
+           NAV
+        ============================================================ */
+        .nav {
+            position: sticky; top: 0; z-index: 100;
+            background:
+                linear-gradient(rgba(10,50,90,0.28), rgba(10,50,90,0.28)),
+                url('images/sky-bg.jpg') center 25%/cover no-repeat;
+            padding: 0 24px;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.2);
+        }
+        .nav-inner {
+            max-width: var(--max-width); margin: 0 auto;
+            display: flex; align-items: center; justify-content: space-between;
+            height: 68px;
+        }
+        .nav-logo { display: flex; align-items: center; text-decoration: none; }
+        .nav-logo img { height: 52px; width: auto; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.18); }
+        .nav-links { display: flex; align-items: center; gap: 4px; list-style: none; }
+        .nav-links a {
+            color: rgba(255,255,255,0.85); font-size: 0.86rem; font-weight: 500;
+            padding: 8px 13px; border-radius: 6px; transition: all 0.2s; text-decoration: none;
+        }
+        .nav-links a:hover { color: var(--white); background: rgba(255,255,255,0.12); }
+        .nav-links .nav-cta { background: var(--sun-bright); color: var(--text-dark); border-radius: 50px; font-weight: 600; }
+        .nav-links .nav-cta:hover { background: var(--sun-warm); color: var(--white); }
+        .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 8px; flex-direction: column; gap: 5px; }
+        .nav-toggle span { display: block; width: 24px; height: 2px; background: var(--white); border-radius: 2px; }
+
+        /* ============================================================
+           PAGE HEADER
+        ============================================================ */
+        .page-header {
+            background: var(--sage-mid);
+            padding: 48px 24px 40px;
+            text-align: center;
+        }
+        .page-header .label {
+            display: inline-block;
+            font-size: 0.75rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase;
+            color: var(--sun-bright);
+            background: rgba(247,201,72,0.18); border: 1px solid rgba(247,201,72,0.4);
+            padding: 7px 18px; border-radius: 50px; margin-bottom: 14px;
+        }
+        .page-header h1 {
+            font-family: var(--font-heading); color: var(--white);
+            font-size: clamp(1.8rem,3.5vw,2.8rem); margin-bottom: 10px;
+        }
+        .page-header p { color: rgba(255,255,255,0.80); font-size: 1rem; max-width: 520px; margin: 0 auto; }
+
+        /* ============================================================
+           DISCLAIMER BANNER
+        ============================================================ */
+        .disclaimer-banner {
+            background: #FFF3CD; border-bottom: 1px solid #F7C948;
+            padding: 14px 24px; text-align: center;
+        }
+        .disclaimer-banner p {
+            font-size: 0.85rem; color: var(--text-dark); margin: 0;
+            font-weight: 500;
+        }
+        .disclaimer-banner strong { color: var(--sun-deep); }
+
+        /* ============================================================
+           MAP SECTION
+        ============================================================ */
+        .map-section { padding: 48px 24px 40px; }
+        .map-section-inner { max-width: var(--max-width); margin: 0 auto; }
+        .map-section h2 {
+            font-family: var(--font-heading); font-size: 1.5rem;
+            color: var(--text-dark); margin-bottom: 6px;
+        }
+        .map-section p { font-size: 0.88rem; color: var(--text-light); margin-bottom: 24px; }
+
+        .map-wrapper {
+            position: relative;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.15);
+            border: 1px solid var(--cream-dark);
+        }
+        .map-wrapper img.plat-img {
+            width: 100%; height: auto; display: block;
+            filter: brightness(1.35) saturate(0.35) contrast(0.85);
+        }
+        /* White wash overlay */
+        .map-wash {
+            position: absolute; inset: 0;
+            background: rgba(255,255,255,0.42);
+            pointer-events: none;
+        }
+
+        /* Price labels */
+        .lot-pin {
+            position: absolute;
+            transform: translate(-50%, -50%);
+            background: rgba(247,201,72,0.96);
+            border: 1.5px solid rgba(192,120,16,0.85);
+            border-radius: 7px;
+            padding: 5px 9px;
+            text-align: center;
+            white-space: nowrap;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.28);
+            z-index: 10;
+            cursor: default;
+            transition: transform 0.15s, box-shadow 0.15s;
+        }
+        .lot-pin:hover {
+            transform: translate(-50%, -50%) scale(1.08);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.35);
+            z-index: 20;
+        }
+        .lot-pin .pin-num {
+            display: block;
+            font-size: 0.62rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 0.06em;
+            color: var(--text-mid);
+            line-height: 1.2;
+        }
+        .lot-pin .pin-price {
+            display: block;
+            font-size: 0.75rem; font-weight: 700;
+            color: var(--text-dark);
+            line-height: 1.3;
+        }
+
+        /* ============================================================
+           PRICING GRID
+        ============================================================ */
+        .pricing-section {
+            background: var(--white);
+            padding: 48px 24px 64px;
+        }
+        .pricing-section-inner { max-width: var(--max-width); margin: 0 auto; }
+        .pricing-section h2 {
+            font-family: var(--font-heading); font-size: 1.6rem;
+            color: var(--text-dark); margin-bottom: 6px;
+        }
+        .pricing-section > .pricing-section-inner > p {
+            font-size: 0.88rem; color: var(--text-light); margin-bottom: 32px;
+        }
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+        .price-card {
+            background: var(--cream);
+            border: 1px solid var(--cream-dark);
+            border-radius: var(--radius);
+            padding: 20px 18px;
+            text-align: center;
+            transition: box-shadow 0.2s, transform 0.2s;
+        }
+        .price-card:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
+        .price-card.premium {
+            background: var(--sun-pale);
+            border-color: var(--sun-muted);
+        }
+        .price-card .card-lot {
+            font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.12em; color: var(--text-light);
+            margin-bottom: 6px;
+        }
+        .price-card .card-price {
+            font-family: var(--font-heading);
+            font-size: 1.35rem; color: var(--text-dark);
+            font-weight: 700; line-height: 1.1;
+            margin-bottom: 6px;
+        }
+        .price-card.premium .card-price { color: var(--sun-deep); }
+        .price-card .card-tag {
+            display: inline-block;
+            font-size: 0.68rem; font-weight: 600;
+            padding: 3px 10px; border-radius: 50px;
+            background: var(--sun-muted); color: var(--text-mid);
+        }
+        .price-card.premium .card-tag {
+            background: var(--sun-bright); color: var(--text-dark);
+        }
+
+        /* ============================================================
+           BACK BAR & FOOTER
+        ============================================================ */
+        .back-bar {
+            background: var(--sun-pale); border-top: 1px solid var(--sun-muted);
+            padding: 24px; text-align: center;
+        }
+        .back-bar a {
+            display: inline-flex; align-items: center; gap: 8px;
+            color: var(--sun-deep); font-weight: 600; font-size: 0.95rem;
+            text-decoration: none; transition: color 0.2s;
+        }
+        .back-bar a:hover { color: var(--sage-mid); }
+        .footer { background: #3D8FB5; color: rgba(255,255,255,0.85); padding: 36px 24px; text-align: center; }
+        .footer p { font-size: 0.82rem; margin: 0; }
+
+        /* ============================================================
+           RESPONSIVE
+        ============================================================ */
+        @media (max-width: 900px) {
+            .pricing-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+        @media (max-width: 640px) {
+            .nav-links { display: none; flex-direction: column; position: absolute; top: 68px; left: 0; right: 0; background: rgba(44,118,156,0.98); padding: 12px; gap: 2px; }
+            .nav-links.open { display: flex; }
+            .nav-toggle { display: flex; }
+            .pricing-grid { grid-template-columns: repeat(2, 1fr); }
+            .gate-card { padding: 32px 24px 28px; }
+            .lot-pin .pin-num { font-size: 0.55rem; }
+            .lot-pin .pin-price { font-size: 0.65rem; }
+            .lot-pin { padding: 3px 6px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ===================== PASSWORD GATE ===================== -->
+<div id="password-gate">
+    <div class="gate-card">
+        <div class="gate-lock">🔒</div>
+        <img src="images/sunnie-springs-logo-nav.png" alt="Sunnie Springs">
+        <h2>Anticipated Pricing</h2>
+        <p>This page is for authorized buyers only.<br>Enter your access code to continue.</p>
+        <div class="pw-form">
+            <input type="password" id="pw-input" placeholder="Enter access code" autocomplete="off" aria-label="Access code">
+            <button onclick="checkPw()">View Lot Pricing →</button>
+        </div>
+        <p id="pw-error">Incorrect code — please try again.</p>
+    </div>
+</div>
+
+<!-- ===================== PRICING CONTENT ===================== -->
+<div id="pricing-content" style="display:none">
+
+    <!-- NAV -->
+    <nav class="nav">
+        <div class="nav-inner">
+            <a href="index.html" class="nav-logo"><img src="images/sunnie-springs-logo-nav.png" alt="Sunnie Springs"></a>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html#about">The Development</a></li>
+                <li><a href="index.html#plat-map">Plat Map</a></li>
+                <li><a href="index.html#zoning">Zoning</a></li>
+                <li><a href="pricing.html" style="color:var(--sun-bright);">Pricing</a></li>
+                <li><a href="index.html#meetings">City Meetings</a></li>
+                <li><a href="index.html#updates">Updates</a></li>
+                <li><a href="index.html#farm">The Farm</a></li>
+                <li><a href="index.html#contact" class="nav-cta">Express Interest</a></li>
+            </ul>
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- PAGE HEADER -->
+    <div class="page-header">
+        <div class="label">For Authorized Buyers Only</div>
+        <h1>Anticipated Lot Pricing</h1>
+        <p>13 residential lots in Pleasant View, Utah — LSFR zoning, mountain views, and a growing farm community next door.</p>
+    </div>
+
+    <!-- DISCLAIMER -->
+    <div class="disclaimer-banner">
+        <p>⚠️ <strong>Anticipated pricing only.</strong> All prices are preliminary, subject to change, and do not constitute an offer to sell. Final pricing will be confirmed upon project approval.</p>
+    </div>
+
+    <!-- PLAT MAP WITH PRICE OVERLAY -->
+    <div class="map-section">
+        <div class="map-section-inner">
+            <h2>Lot Pricing Map</h2>
+            <p>Hover over any lot pin for details. Lots 8–13 are located in the upper portion of the development.</p>
+
+            <div class="map-wrapper">
+                <img class="plat-img" src="images/plat-map.jpg" alt="Sunnie Springs Plat Map">
+                <div class="map-wash"></div>
+
+                <!-- LOTS 1–7: Bottom row (right to left — lot 1 nearest cul-de-sac) -->
+                <div class="lot-pin" style="left:62.5%;top:58.4%" title="Lot 1 — $189,900">
+                    <span class="pin-num">Lot 1</span>
+                    <span class="pin-price">$189,900</span>
+                </div>
+                <div class="lot-pin" style="left:56.3%;top:58.4%" title="Lot 2 — $189,900">
+                    <span class="pin-num">Lot 2</span>
+                    <span class="pin-price">$189,900</span>
+                </div>
+                <div class="lot-pin" style="left:50.5%;top:58.4%" title="Lot 3 — $189,900">
+                    <span class="pin-num">Lot 3</span>
+                    <span class="pin-price">$189,900</span>
+                </div>
+                <div class="lot-pin" style="left:44.2%;top:58.4%" title="Lot 4 — $189,900">
+                    <span class="pin-num">Lot 4</span>
+                    <span class="pin-price">$189,900</span>
+                </div>
+                <div class="lot-pin" style="left:38.4%;top:58.4%" title="Lot 5 — $189,900">
+                    <span class="pin-num">Lot 5</span>
+                    <span class="pin-price">$189,900</span>
+                </div>
+                <div class="lot-pin" style="left:32.1%;top:58.4%" title="Lot 6 — $189,900">
+                    <span class="pin-num">Lot 6</span>
+                    <span class="pin-price">$189,900</span>
+                </div>
+                <div class="lot-pin" style="left:25.6%;top:58.4%" title="Lot 7 — $189,900">
+                    <span class="pin-num">Lot 7</span>
+                    <span class="pin-price">$189,900</span>
+                </div>
+
+                <!-- LOTS 8–11: Upper diagonal premium lots -->
+                <div class="lot-pin" style="left:30.7%;top:25.3%" title="Lot 8 — $279,000">
+                    <span class="pin-num">Lot 8</span>
+                    <span class="pin-price">$279,000</span>
+                </div>
+                <div class="lot-pin" style="left:41.6%;top:24.3%" title="Lot 9 — $259,000">
+                    <span class="pin-num">Lot 9</span>
+                    <span class="pin-price">$259,000</span>
+                </div>
+                <div class="lot-pin" style="left:51.9%;top:31.5%" title="Lot 10 — $249,000">
+                    <span class="pin-num">Lot 10</span>
+                    <span class="pin-price">$249,000</span>
+                </div>
+                <div class="lot-pin" style="left:57.0%;top:39.1%" title="Lot 11 — $234,000">
+                    <span class="pin-num">Lot 11</span>
+                    <span class="pin-price">$234,000</span>
+                </div>
+
+                <!-- LOTS 12–13: Right curve area -->
+                <div class="lot-pin" style="left:74.9%;top:45.2%" title="Lot 12 — $234,000">
+                    <span class="pin-num">Lot 12</span>
+                    <span class="pin-price">$234,000</span>
+                </div>
+                <div class="lot-pin" style="left:75.9%;top:59.6%" title="Lot 13 — $234,000">
+                    <span class="pin-num">Lot 13</span>
+                    <span class="pin-price">$234,000</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PRICING GRID -->
+    <div class="pricing-section">
+        <div class="pricing-section-inner">
+            <h2>All Lot Pricing</h2>
+            <p>Anticipated prices — subject to change upon final city approval.</p>
+            <div class="pricing-grid">
+
+                <div class="price-card">
+                    <div class="card-lot">Lot 1</div>
+                    <div class="card-price">$189,900</div>
+                    <span class="card-tag">Standard</span>
+                </div>
+                <div class="price-card">
+                    <div class="card-lot">Lot 2</div>
+                    <div class="card-price">$189,900</div>
+                    <span class="card-tag">Standard</span>
+                </div>
+                <div class="price-card">
+                    <div class="card-lot">Lot 3</div>
+                    <div class="card-price">$189,900</div>
+                    <span class="card-tag">Standard</span>
+                </div>
+                <div class="price-card">
+                    <div class="card-lot">Lot 4</div>
+                    <div class="card-price">$189,900</div>
+                    <span class="card-tag">Standard</span>
+                </div>
+                <div class="price-card">
+                    <div class="card-lot">Lot 5</div>
+                    <div class="card-price">$189,900</div>
+                    <span class="card-tag">Standard</span>
+                </div>
+                <div class="price-card">
+                    <div class="card-lot">Lot 6</div>
+                    <div class="card-price">$189,900</div>
+                    <span class="card-tag">Standard</span>
+                </div>
+                <div class="price-card">
+                    <div class="card-lot">Lot 7</div>
+                    <div class="card-price">$189,900</div>
+                    <span class="card-tag">Standard</span>
+                </div>
+                <div class="price-card premium">
+                    <div class="card-lot">Lot 8</div>
+                    <div class="card-price">$279,000</div>
+                    <span class="card-tag">Premium</span>
+                </div>
+                <div class="price-card premium">
+                    <div class="card-lot">Lot 9</div>
+                    <div class="card-price">$259,000</div>
+                    <span class="card-tag">Premium</span>
+                </div>
+                <div class="price-card premium">
+                    <div class="card-lot">Lot 10</div>
+                    <div class="card-price">$249,000</div>
+                    <span class="card-tag">Premium</span>
+                </div>
+                <div class="price-card premium">
+                    <div class="card-lot">Lot 11</div>
+                    <div class="card-price">$234,000</div>
+                    <span class="card-tag">Premium</span>
+                </div>
+                <div class="price-card premium">
+                    <div class="card-lot">Lot 12</div>
+                    <div class="card-price">$234,000</div>
+                    <span class="card-tag">Premium</span>
+                </div>
+                <div class="price-card premium">
+                    <div class="card-lot">Lot 13</div>
+                    <div class="card-price">$234,000</div>
+                    <span class="card-tag">Premium</span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- BACK LINK -->
+    <div class="back-bar">
+        <a href="index.html">← Back to Sunnie Springs</a>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <p>&copy; 2026 Sunnie Springs Development &mdash; Pleasant View, Utah. Developed by Jeff Lee.</p>
+    </footer>
+
+</div><!-- end #pricing-content -->
+
+<script>
+    // Auto-unlock if authenticated this session
+    if (sessionStorage.getItem('ss_pricing_auth') === '1') {
+        unlock();
+    }
+
+    function checkPw() {
+        const val = document.getElementById('pw-input').value.trim();
+        if (val === 'SunnieSprings2026') {
+            sessionStorage.setItem('ss_pricing_auth', '1');
+            unlock();
+        } else {
+            document.getElementById('pw-error').style.display = 'block';
+            document.getElementById('pw-input').value = '';
+            document.getElementById('pw-input').focus();
+        }
+    }
+
+    function unlock() {
+        document.getElementById('password-gate').style.display = 'none';
+        document.getElementById('pricing-content').style.display = 'block';
+    }
+
+    // Enter key support
+    document.getElementById('pw-input').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') checkPw();
+    });
+
+    // Mobile nav toggle
+    const toggle = document.getElementById('nav-toggle');
+    const navLinks = document.getElementById('nav-links');
+    if (toggle) {
+        toggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+        navLinks.querySelectorAll('a').forEach(l => l.addEventListener('click', () => navLinks.classList.remove('open')));
+    }
+</script>
+</body>
+</html>
