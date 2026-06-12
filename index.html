@@ -158,41 +158,33 @@
         ============================================ */
         .hero {
             min-height: 100vh;
-            background: linear-gradient(160deg, #FFFCF4 0%, #FFF8E0 50%, #FFFCF4 100%);
+            background:
+                linear-gradient(160deg,
+                    rgba(8, 30, 8, 0.68) 0%,
+                    rgba(15, 50, 15, 0.50) 50%,
+                    rgba(35, 70, 20, 0.32) 100%),
+                url('images/hero-bg.jpg') center 55%/cover no-repeat;
             display: flex; align-items: center;
             padding: 100px 24px 60px;
             position: relative; overflow: hidden;
         }
-        .hero::before {
-            content: ''; position: absolute;
-            width: 600px; height: 600px; border-radius: 50%;
-            background: radial-gradient(circle, rgba(247,201,72,0.12) 0%, transparent 70%);
-            top: -100px; right: -100px; pointer-events: none;
-        }
-        .hero::after {
-            content: ''; position: absolute;
-            width: 400px; height: 400px; border-radius: 50%;
-            background: radial-gradient(circle, rgba(247,201,72,0.08) 0%, transparent 70%);
-            bottom: -80px; left: -80px; pointer-events: none;
-        }
         .hero-inner { max-width: var(--max-width); margin: 0 auto; position: relative; z-index: 1; text-align: center; }
         .hero-logo {
-            width: 420px; max-width: 85vw;
-            margin: 0 auto 20px;
+            width: 360px; max-width: 78vw;
+            margin: 0 auto 24px;
             display: block;
-            filter: drop-shadow(0 6px 28px rgba(200,140,10,0.18));
+            border-radius: 18px;
+            box-shadow: 0 8px 48px rgba(0,0,0,0.45), 0 2px 12px rgba(0,0,0,0.25);
         }
         .hero-sub {
-            font-size: 1.08rem; color: var(--text-mid);
+            font-size: 1.08rem; color: rgba(255,255,255,0.88);
             max-width: 520px; margin: 0 auto 36px; line-height: 1.8;
         }
         .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 52px; justify-content: center; }
-        .btn-outline-dark { background: transparent; color: var(--text-dark); border-color: var(--text-dark); }
-        .btn-outline-dark:hover { background: var(--text-dark); color: var(--white); transform: translateY(-2px); }
         .hero-stats { display: flex; gap: 48px; flex-wrap: wrap; justify-content: center; }
         .hero-stat { display: flex; flex-direction: column; }
-        .hero-stat strong { font-family: var(--font-heading); font-size: 2rem; color: var(--sun-deep); line-height: 1; }
-        .hero-stat span { font-size: 0.78rem; color: var(--text-light); font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; margin-top: 5px; }
+        .hero-stat strong { font-family: var(--font-heading); font-size: 2rem; color: var(--sun-bright); line-height: 1; }
+        .hero-stat span { font-size: 0.78rem; color: rgba(255,255,255,0.65); font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; margin-top: 5px; }
 
         /* ============================================
            STATUS BANNER
@@ -505,7 +497,7 @@
         <p class="hero-sub">A new 13-lot residential community rooted in nature, community, and the beauty of northern Utah. Be part of something growing from the ground up.</p>
         <div class="hero-actions">
             <a href="#contact" class="btn btn-primary">Express Interest in a Lot</a>
-            <a href="#about" class="btn btn-outline-dark">Learn About the Community</a>
+            <a href="#about" class="btn btn-outline">Learn About the Community</a>
         </div>
         <div class="hero-stats">
             <div class="hero-stat">
